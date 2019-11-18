@@ -1,0 +1,7 @@
+*.xlsx
+*.bak
+*.dat
+*.dir
+/__pycache__
+*.pickle
+credentials.json
