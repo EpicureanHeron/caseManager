@@ -33,17 +33,30 @@ def main():
 
     service = build('drive', 'v3', credentials=creds)
 
-    # Call the Drive v3 API
-    results = service.files().list(
-        pageSize=10, fields="nextPageToken, files(id, name)").execute()
-    items = results.get('files', [])
+    folderName = input('Add Folder Name: ')
+    parentID = '18xjjE1XqCqNYU3OOWA4IhivndT16uFBh'
+    templateID = '1ALPBQ_8KG5LYH8RkvDwKjW9bwMx0j-uIaVpKS2cHwIM'
 
-    if not items:
-        print('No files found.')
-    else:
-        print('Files:')
-        for item in items:
-            print(u'{0} ({1})'.format(item['name'], item['id']))
+    body = {
+          'name': folderName,
+          'mimeType': "application/vnd.google-apps.folder"
+        }
+    if parentID:
+        body['parents'] = [parentID]
+    new_folder = service.files().create(body = body).execute()
+    
+    case_google_id = new_folder['id']
+    folderTemplateList = ['screenshots', 'tests']
+
+    for folderType in folderTemplateList:
+        subBody = {
+            'name': folderType,
+            'mimeType': "application/vnd.google-apps.folder",
+            'parents': [case_google_id]
+        }
+        subfolder = service.files().create(body = subBody).execute()
+        print(subfolder['id'])
+
 
 if __name__ == '__main__':
     main()
