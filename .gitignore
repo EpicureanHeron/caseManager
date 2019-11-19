@@ -2,7 +2,7 @@
 *.bak
 *.dat
 *.dir
-keys.json
+
 /__pycache__
 *.pickle
 credentials.json
