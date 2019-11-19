@@ -5,6 +5,9 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
+import requests
+
+
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
@@ -31,6 +34,7 @@ def main():
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
 
+    # service object API
     service = build('drive', 'v3', credentials=creds)
 
     folderName = input('Add Folder Name: ')
@@ -56,7 +60,10 @@ def main():
         }
         subfolder = service.files().create(body = subBody).execute()
         print(subfolder['id'])
+
     copyFile = service.files().copy(fileId= templateID, body={'parents': [case_google_id], 'name': folderName}).execute()
+
+
 
 if __name__ == '__main__':
     main()
