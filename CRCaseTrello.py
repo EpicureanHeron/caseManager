@@ -56,7 +56,7 @@ def main():
         }
         subfolder = service.files().create(body = subBody).execute()
         print(subfolder['id'])
-
+    copyFile = service.files().copy(fileId= templateID, body={'parents': [case_google_id], 'name': folderName}).execute()
 
 if __name__ == '__main__':
     main()
