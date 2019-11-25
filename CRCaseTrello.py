@@ -9,6 +9,7 @@ import requests
 import json
 
 import trelloCard
+import googleDoc
 
 
 # If modifying these scopes, delete the file token.pickle.
@@ -67,11 +68,37 @@ def main():
             'parents': [case_google_id]
         }
         subfolder = service.files().create(body = subBody).execute()
-        print(subfolder['id'])
+       
 
     copyFile = service.files().copy(fileId= templateID, body={'parents': [case_google_id], 'name': folderName}).execute()
 
-    trelloCard.createCard(folderName)
+    newEmail, newCard = trelloCard.createCard(folderName, case_google_id)
+
+    print("--------CRCase line 77")
+    print(newEmail)
+    print(newCard)
+
+    newDocId = googleDoc.googleDoc(newEmail, newCard, folderName)
+
+    # trelloFile = drive_service.files().update(fileId=newDocId,
+
+
+    trelloFile = service.files().get(fileId=newDocId, fields='parents').execute()
+    
+
+    previous_parents = ",".join(trelloFile.get('parents'))
+# Move the file to the new folder
+    trelloFile = service.files().update(fileId=newDocId,
+                                    addParents=case_google_id,
+                                    removeParents=previous_parents,
+                                    fields='id, parents').execute()
+
+
+
+
+
+
+    
 
 if __name__ == '__main__':
     main()

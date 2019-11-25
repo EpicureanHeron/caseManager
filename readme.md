@@ -16,7 +16,7 @@ Creates a Trello card on CR Cases FY20
 
 ## API Documentation
 
-* [Google Drive ](https://developers.google.com/drive/api/v3/about-sdk)
+* [Google Drive](https://developers.google.com/drive/api/v3/about-sdk)
 * [Trello](https://developers.trello.com/reference/)
 
 ## To Dos
