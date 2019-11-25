@@ -6,6 +6,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 import requests
+import trelloCard
 
 
 # If modifying these scopes, delete the file token.pickle.
@@ -63,7 +64,7 @@ def main():
 
     copyFile = service.files().copy(fileId= templateID, body={'parents': [case_google_id], 'name': folderName}).execute()
 
-
+    trelloCard.createCard(folderName)
 
 if __name__ == '__main__':
     main()

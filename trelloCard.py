@@ -19,7 +19,7 @@ def createCard(title):
     # can get ID list by following instructions here: https://www.reddit.com/r/trello/comments/4axfcd/where_is_my_trello_board_id/ and parsing json
 
     
-    querystring = {"idList":board,"keepFromSource":"all","key":apiKey,"token": token}
+    querystring = {"idList":board, "name": title, "pos":"top", "keepFromSource":"all","key":apiKey,"token": token}
 
 
     print(querystring)
@@ -28,4 +28,9 @@ def createCard(title):
 
     print(response.text)
 
-createCard('check')
+    respJson = response.json()
+
+    directLink= respJson['shortUrl']
+
+    print(directLink)
+
