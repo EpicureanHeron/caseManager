@@ -1,5 +1,9 @@
 ## Purpose
 
+Part of my business process involves creating documentation and saving it to Google Drive and then tracking cases via Trello for updates. Currently have to manually create folders, subfolders, new templates, and a Trello Card. This script automates all of that. 
+
+## What it does
+
 Creates a Google Drive Folder with the following contents
 
 * Screenshots Subfolder
@@ -10,12 +14,10 @@ Creates a Trello card on CR Cases FY20
 
 * Same name as Google Drive Folder
 
-## Tech
+## API Documentation
 
-Interacts with two APIs 
-
-[Google Drive ](https://developers.google.com/drive/api/v3/about-sdk)
-[Trello](https://developers.trello.com/reference/)
+* [Google Drive ](https://developers.google.com/drive/api/v3/about-sdk)
+* [Trello](https://developers.trello.com/reference/)
 
 ## To Dos
 
