@@ -6,6 +6,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 import requests
+import json
+
 import trelloCard
 
 
@@ -35,12 +37,17 @@ def main():
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
 
+    with open('keys.json') as json_file:
+        data = json.load(json_file)
+        parentID = data['GoogleDriveFolder']
+        #secret = data['secret']
+        templateID = data["GoogleDocTemplate"]
+
     # service object API
     service = build('drive', 'v3', credentials=creds)
 
     folderName = input('Add Folder Name: ')
-    parentID = '18xjjE1XqCqNYU3OOWA4IhivndT16uFBh'
-    templateID = '1ALPBQ_8KG5LYH8RkvDwKjW9bwMx0j-uIaVpKS2cHwIM'
+   
 
     body = {
           'name': folderName,

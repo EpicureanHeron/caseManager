@@ -22,11 +22,7 @@ def createCard(title):
     querystring = {"idList":board, "name": title, "pos":"top", "keepFromSource":"all","key":apiKey,"token": token}
 
 
-    print(querystring)
-
     response = requests.request("POST", url, params=querystring)
-
-    print(response.text)
 
     respJson = response.json()
 
