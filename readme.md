@@ -27,3 +27,4 @@ Creates a Trello card on CR Cases FY20
 * [Link Google Drive Folder to Trello Card](https://trello.com/power-ups/55a5d916446f517774210006/google-drive)
 * ~~At the very least, link in comment on Trello card back to the Google Drive folder (could be in summary at top)~~
 * Add an example keys.json file
+* According to documentation found on stackoverflow (?) unable to GET card email from API. Might need to load page by requesting .json and then loading the email from that query. 
