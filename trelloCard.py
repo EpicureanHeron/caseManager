@@ -31,8 +31,12 @@ def createCard(title, google_id):
     #print(google_id)
     
     print(folderURL)
-    email = respJson['email']
-    print(email)
 
-    return(email, directLink)
+    # email cannot be grabbed via Trello API
+    # email = respJson['email']
+    # print(email)
+
+   # return(email, directLink)
+
+    return(directLink)
 

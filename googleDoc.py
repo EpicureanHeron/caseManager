@@ -11,9 +11,9 @@ from google.auth.transport.requests import Request
 # The ID of a sample document.
 
 
-def googleDoc(email, link, folderName):
+def googleDoc(link, folderName):
     SCOPES = ['https://www.googleapis.com/auth/documents']
-    print(email)
+    #print(email)
     print(link)
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -46,9 +46,9 @@ def googleDoc(email, link, folderName):
 
   
     text = """
-    email: %s  
+    email: 'See Card Link'  
     card link: %s
-    """ % (email, link)
+    """ % (link)
 
     requests = [
          {
@@ -62,7 +62,7 @@ def googleDoc(email, link, folderName):
 
     ]
 
-    result = service.documents().batchUpdate(documentId=doc['documentId'], body={'requests': requests}).execute()
+    service.documents().batchUpdate(documentId=doc['documentId'], body={'requests': requests}).execute()
 
     return(doc['documentId'])
 

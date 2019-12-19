@@ -15,7 +15,10 @@ import googleDoc
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
+
 def main():
+
+
     """Shows basic usage of the Drive v3 API.
     Prints the names and ids of the first 10 files the user has access to.
     """
@@ -38,18 +41,20 @@ def main():
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
 
+    # opens the keys.json which has the ID for the parent folder and the ID for the template folder 
     with open('keys.json') as json_file:
         data = json.load(json_file)
         parentID = data['GoogleDriveFolder']
-        #secret = data['secret']
         templateID = data["GoogleDocTemplate"]
 
     # service object API
     service = build('drive', 'v3', credentials=creds)
 
+    # create name for folder and trello card
     folderName = input('Add Folder Name: ')
-   
 
+
+    # stages data for API folder creation 
     body = {
           'name': folderName,
           'mimeType': "application/vnd.google-apps.folder"
@@ -58,27 +63,33 @@ def main():
         body['parents'] = [parentID]
     new_folder = service.files().create(body = body).execute()
     
+    # grabs the new folder's ID for reference 
     case_google_id = new_folder['id']
+
+    # list of template folders to include 
     folderTemplateList = ['screenshots', 'tests']
 
+    # loops through template list and adds them to the newly created folder 
     for folderType in folderTemplateList:
         subBody = {
             'name': folderType,
             'mimeType': "application/vnd.google-apps.folder",
             'parents': [case_google_id]
         }
-        subfolder = service.files().create(body = subBody).execute()
+        service.files().create(body = subBody).execute()
        
 
-    copyFile = service.files().copy(fileId= templateID, body={'parents': [case_google_id], 'name': folderName}).execute()
+    # copys case template google doc to the new folder
+    service.files().copy(fileId= templateID, body={'parents': [case_google_id], 'name': folderName}).execute()
 
-    newEmail, newCard = trelloCard.createCard(folderName, case_google_id)
 
-    print("--------CRCase line 77")
-    print(newEmail)
-    print(newCard)
+    newCard = trelloCard.createCard(folderName, case_google_id)
 
-    newDocId = googleDoc.googleDoc(newEmail, newCard, folderName)
+    # email address may not be available: https://stackoverflow.com/questions/42247377/trello-api-e-mail-address-of-my-card-returns-null
+
+    ## sounds like if you do newCard.json and load, and parse the json, the email address MIGHT be available (rather than using API, have to use direct REQUEST to the wbe facing version)
+
+    newDocId = googleDoc.googleDoc(newCard, folderName)
 
     # trelloFile = drive_service.files().update(fileId=newDocId,
 
