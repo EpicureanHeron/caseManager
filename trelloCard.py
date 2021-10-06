@@ -26,7 +26,7 @@ def createCard(title, google_id):
     print(respJson)
 
     directLink= respJson['shortUrl']
-    print('------trelloCard 28')
+   # print('------trelloCard 28')
     print(directLink)
     #print(google_id)
     
